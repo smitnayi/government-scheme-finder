@@ -1,0 +1,25 @@
+# Virtual environment
+venv/
+
+# Generated index files
+embeddings.npy
+schemes_indexed.csv
+
+# Results (regeneratable)
+results/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Model cache
+.cache/
+
+# Personal notes / project understanding docs
+notes/
+
+# Streamlit config
+.streamlit/
+
+# PDF
+*.pdf

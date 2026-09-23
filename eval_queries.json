@@ -1,0 +1,102 @@
+[
+    {
+        "query": "my father is a farmer and needs a loan for equipment",
+        "relevant_schemes": ["pcardbbfh", "aafpwd", "pcardbbftp", "pcaardfh", "aapd"]
+    },
+    {
+        "query": "scholarship for SC ST students in engineering college",
+        "relevant_schemes": ["pmcup", "stds", "stsds"]
+    },
+    {
+        "query": "financial help for widow with school-going children",
+        "relevant_schemes": ["eacw", "fsdcwdw", "fawwrcw"]
+    },
+    {
+        "query": "I want to start a small business in rural area",
+        "relevant_schemes": ["rbisuk", "sbsggvn", "sbstspddsy"]
+    },
+    {
+        "query": "free laptop or computer for college students",
+        "relevant_schemes": ["sflvisgpg", "les-goa", "fctuk"]
+    },
+    {
+        "query": "pension for retired government employee",
+        "relevant_schemes": ["cmpsmp", "psoap", "oapwb"]
+    },
+    {
+        "query": "housing scheme for poor people to build a house",
+        "relevant_schemes": ["dfhsscoebc", "rhs", "hs", "pchcw"]
+    },
+    {
+        "query": "girl child education support scheme",
+        "relevant_schemes": ["gfapphoogcws81s", "edssgc", "fagcaha18"]
+    },
+    {
+        "query": "medical treatment expenses for cancer patient",
+        "relevant_schemes": ["metfmaiswb", "gascstpsfcad", "grants-in-aid-to-scst-patients", "hmcpf", "fasiiiaivcp"]
+    },
+    {
+        "query": "disability pension for physically handicapped person",
+        "relevant_schemes": ["dpabocwwb", "dpcw", "isssppcp", "sdp"]
+    },
+    {
+        "query": "skill training for unemployed youth",
+        "relevant_schemes": ["sda2013", "sdt-90drsdtp", "vt-pudu"]
+    },
+    {
+        "query": "subsidy for solar panel installation on rooftop",
+        "relevant_schemes": ["cmsrcis", "csssspg", "spss-goa"]
+    },
+    {
+        "query": "insurance scheme for farmers crops against natural disaster",
+        "relevant_schemes": ["fais", "wbcism"]
+    },
+    {
+        "query": "maternity leave benefits for working women",
+        "relevant_schemes": ["mbwb", "mbobocwwb", "mbfwb", "mafcw"]
+    },
+    {
+        "query": "toilet construction financial assistance in village",
+        "relevant_schemes": ["sctukbocwwb", "ssyup"]
+    },
+    {
+        "query": "old age pension for senior citizens above 60",
+        "relevant_schemes": ["psoap", "oap", "oapc", "oapsp", "oaa"]
+    },
+    {
+        "query": "free gas connection for BPL families",
+        "relevant_schemes": ["msmsy", "pmuy", "pmuy2", "mmgsy", "pahal-dbtl"]
+    },
+    {
+        "query": "startup funding for young entrepreneurs",
+        "relevant_schemes": ["rbisuk", "sbsggvn", "syss", "vcf-sc", "sei"]
+    },
+    {
+        "query": "water supply scheme for rural drinking water",
+        "relevant_schemes": ["rwss", "rdwss", "mgpny", "ukdwpsua", "afccdwt"]
+    },
+    {
+        "query": "financial support for minority community students higher education",
+        "relevant_schemes": ["pmcup", "stds", "pjmskrl", "apjkrl", "pmssfm"]
+    },
+    {
+        "query": "road construction employment guarantee for villagers",
+        "relevant_schemes": ["mgnrega", "dpivrcscb", "mmsagy"]
+    },
+    {
+        "query": "self employment scheme for ex servicemen veterans",
+        "relevant_schemes": ["mgmdwesmww", "ses", "s-esdp", "pfe"]
+    },
+    {
+        "query": "nutrition programme for pregnant women and infants",
+        "relevant_schemes": ["snpb", "icdsuk", "kcr-nutrition-kit", "mbwb", "mbfwb"]
+    },
+    {
+        "query": "electricity connection for households without power",
+        "relevant_schemes": ["zvy"]
+    },
+    {
+        "query": "arts and culture fellowship for traditional artists",
+        "relevant_schemes": ["aoftmea"]
+    }
+]
