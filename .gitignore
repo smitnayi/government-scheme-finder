@@ -1,6 +1,8 @@
 # Virtual environment
 venv/
 
+DECISION_LOG.md
+
 # Generated index files
 embeddings.npy
 schemes_indexed.csv
