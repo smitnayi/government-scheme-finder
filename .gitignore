@@ -10,6 +10,11 @@ schemes_indexed.csv
 # Results (regeneratable)
 results/
 
+
+.agents/
+
+.claude/
+
 # Python cache
 __pycache__/
 *.pyc
