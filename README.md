@@ -7,12 +7,12 @@ An end-to-end NLP retrieval system for matching citizen natural-language life si
 ## 📌 Key Highlights & Results
 
 - **Model:** `sentence-transformers/all-MiniLM-L6-v2` (384-dimensional dense vectors).
-- **Corpus:** 4,614 official Indian government schemes across central ministries and 36 states/UTs.
+- **Corpus:** 3,400 official Indian government schemes from `updated_data.csv` with full details, benefits, eligibility, application processes, and documents across central ministries and 36 states/UTs.
 - **Retrieval Performance:**
-  - **Top-1 Accuracy:** **92.0%** (Semantic) vs **16.0%** (Keyword Baseline) — **5.75x improvement**.
-  - **Recall@5:** **100.0%** (Semantic) vs **56.0%** (Keyword Baseline).
+  - **Top-1 Accuracy:** **40.0%** (Semantic) vs **4.0%** (Keyword Baseline) — **10x improvement**.
+  - **Recall@5:** **72.0%** (Semantic) vs **8.0%** (Keyword Baseline) — **9x improvement**.
 - **Search Latency:** **~0.62 ms** per query on CPU using vectorized NumPy matrix operations.
-- **Interactive UI:** Streamlit interface with state/category filters and side-by-side comparison mode.
+- **Interactive UI:** Streamlit interface with state/category filters, rich scheme drawers, and side-by-side comparison mode.
 
 ---
 
@@ -26,9 +26,8 @@ An end-to-end NLP retrieval system for matching citizen natural-language life si
 ├── faiss_benchmark.py          # Latency benchmark (NumPy BLAS vs FAISS)
 ├── eval_queries.json           # 25 curated test queries across 10 domains
 ├── requirements.txt            # Project dependencies
-├── DOWNLOADS_REGISTRY.md       # Full registry of downloads, packages, and justifications
-├── DECISION_LOG.md             # Architecture Decision Records (ADR)
-├── govt_schemes_dataset.csv    # Raw corpus (4,614 schemes)
+├── updated_data.csv            # Raw corpus (3,400 schemes with benefits & eligibility)
+├── govt_schemes_dataset.csv    # Legacy corpus reference
 ├── embeddings.npy              # (Generated) Normalized 384-dim vector matrix
 ├── schemes_indexed.csv         # (Generated) Validated corpus with search_text
 └── results/

@@ -683,12 +683,12 @@ st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
 @st.cache_resource
 def init():
-    search_engine.load_index()
+    df = search_engine.load_index()
     states = search_engine.get_unique_states()
     categories = search_engine.get_unique_categories()
-    return states, categories
+    return len(df), states, categories
 
-states, categories = init()
+total_schemes, states, categories = init()
 
 # ── Top Navigation / Brand Bar ────────────────────────────────────────────────
 
@@ -705,7 +705,7 @@ brand_html = f"""
     </div>
     <div class="brand-meta-badge">
         <span class="pulse-dot"></span>
-        <span>4,614 Schemes Indexed</span>
+        <span>{total_schemes:,} Schemes Indexed</span>
         <span style="opacity: 0.4;">·</span>
         <span>Offline BLAS Vector Engine</span>
     </div>
@@ -749,7 +749,7 @@ with st.sidebar:
         f'<div class="sidebar-heading">{get_svg_icon("cpu", size=16, color="#0EA5E9")} Architecture Specs</div>'
     )
     render_html(
-        """
+        f"""
         <div class="tech-spec-box">
             <div class="tech-spec-item">
                 <span class="tech-spec-key">Encoder</span>
@@ -765,7 +765,11 @@ with st.sidebar:
             </div>
             <div class="tech-spec-item">
                 <span class="tech-spec-key">Corpus Size</span>
-                <span class="tech-spec-val">4,614 schemes</span>
+                <span class="tech-spec-val">{total_schemes:,} schemes</span>
+            </div>
+            <div class="tech-spec-item">
+                <span class="tech-spec-key">Source</span>
+                <span class="tech-spec-val">updated_data.csv</span>
             </div>
             <div class="tech-spec-item">
                 <span class="tech-spec-key">Latency</span>
@@ -904,9 +908,62 @@ def render_scheme_card(row, method: str):
         tag_list = [t.strip() for t in tags_val.split(';') if t.strip()][:6]
         tag_elements = "".join([f'<span class="drawer-tag-chip">#{html.escape(t)}</span>' for t in tag_list])
 
-    # Search Link for Official Portal verification
-    encoded_query = urllib.parse.quote(str(row['scheme_name']))
-    myscheme_url = f"https://www.myscheme.gov.in/search?q={encoded_query}"
+    # Direct portal verification link
+    slug_val = str(row.get('slug', row.get('scheme_id', ''))).strip()
+    if slug_val and slug_val != 'nan':
+        myscheme_url = f"https://www.myscheme.gov.in/schemes/{slug_val}"
+    else:
+        encoded_query = urllib.parse.quote(str(row['scheme_name']))
+        myscheme_url = f"https://www.myscheme.gov.in/search?q={encoded_query}"
+
+    # Rich Details from updated_data.csv
+    benefits_val = str(row.get('benefits', '')).strip()
+    benefits_html = ""
+    if benefits_val and benefits_val != 'nan':
+        benefits_clean = html.escape(benefits_val).replace("\n", "<br>")
+        sparkle_icon = get_svg_icon("sparkles", size=14, color="#34D399")
+        benefits_html = f"""
+<div style="font-weight: 600; color: #34D399; margin-top: 12px; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
+    {sparkle_icon} Key Scheme Benefits:
+</div>
+<div style="margin-bottom: 12px; color: #CBD5E1; font-size: 0.88rem; line-height: 1.5;">{benefits_clean}</div>
+"""
+
+    eligibility_val = str(row.get('eligibility', '')).strip()
+    eligibility_html = ""
+    if eligibility_val and eligibility_val != 'nan':
+        eligibility_clean = html.escape(eligibility_val).replace("\n", "<br>")
+        shield_icon = get_svg_icon("shield-check", size=14, color="#60A5FA")
+        eligibility_html = f"""
+<div style="font-weight: 600; color: #60A5FA; margin-top: 12px; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
+    {shield_icon} Eligibility Criteria:
+</div>
+<div style="margin-bottom: 12px; color: #CBD5E1; font-size: 0.88rem; line-height: 1.5;">{eligibility_clean}</div>
+"""
+
+    application_val = str(row.get('application', '')).strip()
+    application_html = ""
+    if application_val and application_val != 'nan':
+        application_clean = html.escape(application_val).replace("\n", "<br>")
+        layers_icon = get_svg_icon("layers", size=14, color="#A78BFA")
+        application_html = f"""
+<div style="font-weight: 600; color: #A78BFA; margin-top: 12px; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
+    {layers_icon} Application Process:
+</div>
+<div style="margin-bottom: 12px; color: #CBD5E1; font-size: 0.88rem; line-height: 1.5;">{application_clean}</div>
+"""
+
+    documents_val = str(row.get('documents', '')).strip()
+    documents_html = ""
+    if documents_val and documents_val != 'nan':
+        documents_clean = html.escape(documents_val).replace("\n", "<br>")
+        tag_icon = get_svg_icon("tag", size=14, color="#FBBF24")
+        documents_html = f"""
+<div style="font-weight: 600; color: #FBBF24; margin-top: 12px; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
+    {tag_icon} Required Documents:
+</div>
+<div style="margin-bottom: 12px; color: #CBD5E1; font-size: 0.88rem; line-height: 1.5;">{documents_clean}</div>
+"""
 
     chevron_svg = get_svg_icon("chevron-down", size=14, color="#818CF8", extra_class="chevron-icon")
     ext_link_svg = get_svg_icon("external-link", size=13, color="#A5B4FC")
@@ -933,13 +990,17 @@ def render_scheme_card(row, method: str):
 <summary>
 <div class="drawer-trigger-left">
 {info_icon_svg}
-<span>View Scheme Summary & Target Criteria</span>
+<span>View Scheme Summary, Benefits & Eligibility</span>
 </div>
 {chevron_svg}
 </summary>
 <div class="drawer-content">
 <div style="font-weight: 600; color: #F8FAFC; margin-bottom: 6px;">Program Overview:</div>
-<div style="margin-bottom: 12px; color: #CBD5E1;">{full_desc_clean}</div>
+<div style="margin-bottom: 12px; color: #CBD5E1; font-size: 0.88rem; line-height: 1.5;">{full_desc_clean}</div>
+{benefits_html}
+{eligibility_html}
+{application_html}
+{documents_html}
 <div class="drawer-grid">
 <div>
 <div class="drawer-item-label">Jurisdiction</div>
@@ -955,7 +1016,7 @@ def render_scheme_card(row, method: str):
 </div>
 <div>
 <div class="drawer-item-label">Identifier Slug</div>
-<div class="drawer-item-val" style="font-family: 'JetBrains Mono', monospace; font-size: 0.76rem;">{html.escape(str(row.get('scheme_id', 'N/A')))}</div>
+<div class="drawer-item-val" style="font-family: 'JetBrains Mono', monospace; font-size: 0.76rem;">{html.escape(str(row.get('slug', row.get('scheme_id', 'N/A'))))}</div>
 </div>
 </div>
 {f'<div style="font-size: 0.72rem; font-weight: 600; text-transform: uppercase; color: #64748B; margin-top: 10px;">Classification Tags:</div><div class="drawer-tags">{tag_elements}</div>' if tag_elements else ''}
